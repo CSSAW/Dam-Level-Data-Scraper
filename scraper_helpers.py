@@ -33,5 +33,3 @@ def getArchivedURLs(province, daysInterval=7):
 
 def getProvinces(fileName):
     return open(fileName, "r").readlines()
-
-print(getArchivedURLs("M", 7))
