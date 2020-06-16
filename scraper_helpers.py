@@ -57,5 +57,3 @@ def findTableHTML(tag):
 
 def getProvinces(fileName):
     return open(fileName, "r").readlines()
-
-print(getTableData("https://web.archive.org/web/20101007170516/http://www.dwa.gov.za/Hydrology/Weekly/ProvinceWeek.aspx?region=M"))
