@@ -11,12 +11,12 @@ import time
 
 # gets all of the Internet Archive URLs for a specific province
 def getArchivedURLs(province, daysInterval=7, sleep=1):
-    urls = set()
+    urls = dict()
     delta = datetime.timedelta(days=daysInterval)
     startDate = datetime.date(2010, 1, 1) # there are no webpages before 2010
     endDate = datetime.date.today()
 
-    print("Starting scrapping...")
+    print("Starting scraping for " + province + "...")
 
     while(startDate <= endDate):
         archiveUrl = "http://archive.org/wayback/available?url=www.dwa.gov.za/Hydrology/Weekly/ProvinceWeek.aspx?region="
@@ -24,7 +24,8 @@ def getArchivedURLs(province, daysInterval=7, sleep=1):
 
         try:
             data = requests.get(archiveUrl).json()
-            urls.add(getURL(data))
+            date_url = getURL(data)
+            urls[date_url[0]] = date_url[1]
         except:
             print("Something went wrong when finding a URL for the date " + str(startDate))
 
@@ -33,7 +34,7 @@ def getArchivedURLs(province, daysInterval=7, sleep=1):
 
     print("Found URLs for " + province)
     
-    return sorted(urls)
+    return sorted(urls.items(), key=lambda pair: pair[0])
 
 def getTableData(url, date):
     soup = BeautifulSoup(requests.get(url).text, features="html.parser")
@@ -52,7 +53,7 @@ def getTableData(url, date):
         if "Total" not in cleanRow and "Last Week" not in cleanRow and len(cleanRow) > 1: # exclude lines we don't want
             cleanTable.append(cleanRow)
 
-    return pd.DataFrame(data=cleanTable, columns=["Date", "Dam", "River", "FSC", "This week", "Last Week", "Last Year"])
+    return cleanTable
 
 def findTableHTML(tag):
     # filter for the table of data by looking through tags
@@ -61,6 +62,3 @@ def findTableHTML(tag):
 
 def getURL(json):
     return json["archived_snapshots"]["closest"]["timestamp"][:8], json["archived_snapshots"]["closest"]["url"]
-
-def getProvinces(fileName):
-    return open(fileName, "r").readlines()
