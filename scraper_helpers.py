@@ -50,7 +50,7 @@ def getTableData(url, date):
             if data != "Photo" and data != "Indicators": # these parts are useless to us
                 cleanRow.append(data)
 
-        if "Total" not in cleanRow and "Last Week" not in cleanRow and len(cleanRow) > 1: # exclude lines we don't want
+        if "Total" not in cleanRow and "Last Week" not in cleanRow and len(cleanRow) == 7: # exclude lines we don't want
             cleanTable.append(cleanRow)
 
     return cleanTable

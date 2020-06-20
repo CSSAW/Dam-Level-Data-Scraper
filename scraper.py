@@ -40,7 +40,7 @@ if not args.provinces == None:
 for p, name in provinces.items():
     csvPath = os.path.join(args.output, name + "_dam_levels.csv")
     if os.path.isfile(csvPath) and args.no_override:
-        break
+        continue
 
     provinceData = list()
 
