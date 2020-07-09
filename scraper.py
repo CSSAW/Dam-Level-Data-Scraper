@@ -48,7 +48,7 @@ for p, name in provinces.items():
         provinceData = provinceData + scraper_helpers.getTableData(pair[1], pair[0])
 
     df = pd.DataFrame(data=provinceData, columns=["Date", "Dam", "River", "FSC", "This week", "Last Week", "Last Year"])
-    df.to_csv(csvPath, sep=",")
+    df.to_csv(csvPath, sep=",", index=False)
 
     print("Exported data to " + csvPath)
     
