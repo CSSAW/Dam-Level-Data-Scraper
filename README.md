@@ -3,7 +3,7 @@ Scrape weekly dam water level data from the South African Department of Water an
 
 Data source: http://www.dwa.gov.za/Hydrology/Weekly/Province.aspx
 
-The script scraper.py will put the data gathered for each province into its own CSV ordered by date. It will not normalize the data. The functions in normalize.py will squeeze the FSC (Full Storage Capacity) between 0.0 and 1.0 and the percentage values will be converted into corresponding decimal values for the percentages.
+The script scraper.py will insert each province's data into a seperate CSV where the rows are ordered by date. It will not normalize the data, which has to be done seperately using the functions in normalize.py. Normalizing will squeeze the FSC (Full Storage Capacity) between 0.0 and 1.0 and the percentage values will be converted into corresponding decimal values for the percentages.
 
 ```
 usage: scraper.py [-h] [--output OUTPUT] [--provinces PROVINCES [PROVINCES ...]] [--no_override]
