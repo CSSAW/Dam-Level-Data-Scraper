@@ -14,8 +14,8 @@ def normalize_df(df):
     fsc_max = n_df["FSC"].max()
     fsc_min = n_df["FSC"].min()
 
-    # squish the full storage capacity values between 0 and 1
-    n_df["FSC"] = (n_df["FSC"] - fsc_min)/(fsc_max - fsc_min)
+    # squish the full storage capacity values between 0.1 and 0.9
+    n_df["FSC"] = 0.1 + (n_df["FSC"] - fsc_min) * 0.8 / (fsc_max - fsc_min)
 
     return n_df
 
